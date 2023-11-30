@@ -1,0 +1,61 @@
+Can have a single array of all object pieces. The board then maps each object to its position on the board based on its position 
+
+- moving a piece {
+    select a position on which piece you wanna move,
+    
+    Each piece will have its defined rules which the board class can access from the piece object
+}
+
+
+- Moving a castle piece {
+    - Horisontal function {
+        - has an input for the x position it is at.
+        - Board provides and array that has options where the castle can move
+    }
+
+    - Vertical function {
+        - has an input for the y position it is at
+        - board provides an array that has options where the castle can move
+    }
+}
+
+- Moving a Horse piece {
+    - Available horse pos function {
+        checks position 2 north 1 east 
+        checks position 2 north 1 west
+        checks position 2 west 1 north
+        checks position 2 west 1 south
+        checks position 2 south 1 west
+        checks position 2 south 1 east
+        checks position 2 east 1 south
+        checks position 2 east 1 north
+
+        can move to this position if 0 <= a,b < 8, if there is an opposing side piece in the position, if isnt king
+
+    }
+}
+
+- Checking king {
+    - We have a whiteChecked and blackChecked boolean in the Board class
+    - At each turn, we perform dijkstras algorithm to check each opposing piece's potential moves
+    - If the position of the king is in any of these, we set that types checked to true
+    - If your side is checked, you must move the king into a position which isn't checked or move a piece in a position to stop being checked
+}
+
+- Unchecking king and check mate {
+    - For the king to become no longer in check, the king must move out of check itself or a piece on their side has the block the check
+    - We can check each king possible movement which is all the squares around it, as long as there is not an ally piece or it is also check
+    - To block the check we can check each of its allys possible positions and see if it lines up with the positions which the enemy checking piece can move To
+    - If we have a match, it is not checkmate, else checkmate
+}
+
+for our validate checking king function, we can take an extra paramter that takes another piece and its new wanted position
+
+we will set the piece tos position to its new position at the top of function, and let checked either run true or false. At end change position back. 
+
+The function will now only be used when checking if we can move a piece. We can just print white checked and black checked at update board.
+
+If a a sides check is true:
+- cannot move pieces
+
+To get out of being checked, run through all ally piece potential positions using the validate king checked function.
